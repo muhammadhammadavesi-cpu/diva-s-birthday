@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Surprise</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Great+Vibes&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-image: url(background2.jfif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Indie Flower", cursive;
+}
+
+/* ── Confetti ── */
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg) scale(1); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: confettiFall linear forwards;
+}
+
+#main-cont{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#p1{
+  font-size: 34px;
+  font-weight: 600;
+  color: rgb(62, 0, 0);
+  margin-bottom: 15px;
+}
+
+#p2{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(62, 0, 0);
+  margin-bottom: 30px;
+}
+
+#cat-video{
+  width: 88%;
+  border-radius: 10px;
+}
+
+</style>
+</head>
+<body>
+
+  <div id="main-cont">
+    <p id="p1">Happy Birthday Kanza</p>
+    <p id="p2">here's a little celebration from meow meow's</p>
+    <video src="cat-celebrate2.mp4" id="cat-video" controls autoplay loop></video>
+  </div>
+
+<script>
+  /* ── Confetti on page load ── */
+  function launchConfetti() {
+    const colors = ['#ff6b6b','#ffd93d','#ff6bce','#ffb347','#c77dff','#ff4d6d','#ffffff','#ffb3d1','#ff85b3'];
+    const shapes = ['square','circle','rect'];
+
+    for (let i = 0; i < 160; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.classList.add('confetti-piece');
+
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        if (shape === 'circle') {
+          el.style.borderRadius = '50%';
+        } else if (shape === 'rect') {
+          el.style.width  = '5px';
+          el.style.height = '14px';
+        }
+
+        el.style.left              = Math.random() * 100 + 'vw';
+        el.style.backgroundColor   = colors[Math.floor(Math.random() * colors.length)];
+        el.style.animationDuration = (1.8 + Math.random() * 2.4) + 's';
+        el.style.animationDelay    = (Math.random() * 0.6) + 's';
+
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5500);
+      }, i * 7);
+    }
+  }
+
+
+  /* ── Fire on load ── */
+  window.addEventListener('load', () => {
+    launchConfetti();
+  });
+</script>
+
+</body>
+</html>
